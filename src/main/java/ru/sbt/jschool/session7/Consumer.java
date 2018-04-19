@@ -32,10 +32,22 @@ public class Consumer implements Runnable {
         }
     }
 
-    private Job getJob() {
+    private Job getJob() throws InterruptedException {
         //TODO: Здесь нужно получить задание из store!
+        Job curJob = null;
+        synchronized (store) {
+            while (store.cnt == 0) {
+                try {
+                    store.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            curJob = store.store[store.cnt - 1];
+            --store.cnt;
+            return curJob;
 
-        return null;
+        }
     }
 
     private void executeJob(Job job) throws InterruptedException {

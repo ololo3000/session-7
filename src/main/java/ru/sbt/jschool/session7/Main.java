@@ -13,7 +13,7 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 public class Main {
     public static final int CONSUMER_CNT = 4;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         JobsStore store = new JobsStore();
 
         Set<Integer> doneJobs = new HashSet<>();
@@ -37,6 +37,27 @@ public class Main {
         }
         catch (InterruptedException e) {
             throw new RuntimeException(e);
+        }
+    }*/
+    public static void main(String[] args) {
+        Object lock = new Object();
+
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(1);
+            }
+        });
+
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(2);
+            }
+        });
+
+        while (true) {
+
         }
     }
 }
